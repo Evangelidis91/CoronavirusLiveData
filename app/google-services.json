@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "249827743288",
+    "firebase_url": "https://coronovirus-live-stats.firebaseio.com",
+    "project_id": "coronovirus-live-stats",
+    "storage_bucket": "coronovirus-live-stats.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:249827743288:android:2771c2d2f9eddd502478cd",
+        "android_client_info": {
+          "package_name": "com.evangelidis.coronaviruslivedata"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "249827743288-aidergoih40ef3toon6vo5g5dahl338e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.evangelidis.coronaviruslivedata",
+            "certificate_hash": "57f2f85afee565ef9f54693463d6cc4f666c4af3"
+          }
+        },
+        {
+          "client_id": "249827743288-iu409hjte683bhn4290q7frftq6phsau.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHoJBVqH1BzD629W3ni210t15x9JPuNvs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "249827743288-iu409hjte683bhn4290q7frftq6phsau.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

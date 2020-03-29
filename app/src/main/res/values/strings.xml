@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Coronavirus Live Data</string>
+
+    <string name="close_popup_window_title">What do you want to do?</string>
+    <string name="close_the_app_text">Close the app</string>
+    <string name="cancel" translatable="false">Cancel</string>
+    <string name="country">Country</string>
+    <string name="total_cases">Total Cases</string>
+    <string name="new_cases">New Cases</string>
+    <string name="total_deaths">Total Deaths</string>
+    <string name="new_deaths">New Deaths</string>
+    <string name="error_for_data">An error occurred while loading Data</string>
+
+</resources>

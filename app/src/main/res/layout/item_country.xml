@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    android:layout_margin="5dp"
+    android:orientation="horizontal"
+    tools:context=".view.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="6">
+
+        <TextView
+            android:id="@+id/countryName"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="1.6"
+            android:textColor="#212121"
+            android:fontFamily="@font/montserrat_medium"
+            tools:text="Greece" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:background="#000" />
+
+        <TextView
+            android:id="@+id/totalCases"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="1.2"
+            android:textColor="#212121"
+            android:fontFamily="@font/montserrat_medium"
+            tools:text="900000" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:background="#000" />
+
+        <TextView
+            android:id="@+id/newCases"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="#ffeeaa"
+            android:layout_weight="1"
+            android:textColor="#212121"
+            android:fontFamily="@font/montserrat_medium"
+            tools:text="900000" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:background="#000" />
+
+        <TextView
+            android:id="@+id/totalDeaths"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="1.2"
+            android:textColor="#212121"
+            android:fontFamily="@font/montserrat_medium"
+            tools:text="900000" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#000" />
+
+        <TextView
+            android:id="@+id/newDeaths"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="#FF0000"
+            android:layout_weight="1"
+            android:textColor="#212121"
+            android:fontFamily="@font/montserrat_medium"
+            tools:text="900000" />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
