@@ -11,4 +11,15 @@
     <string name="new_deaths">New Deaths</string>
     <string name="error_for_data">An error occurred while loading Data</string>
 
+    <string name="total_cases_c">Total cases: _</string>
+    <string name="todays_cases">Today\'s cases: _</string>
+    <string name="total_deaths_c">Total deaths: _</string>
+    <string name="todays_deaths">Today\'s deaths: _</string>
+    <string name="recovered">Total recovered: _</string>
+    <string name="active">Total active: _</string>
+    <string name="critical">Total critical: _</string>
+    <string name="cases_per_million">Total cases per million: _</string>
+    <string name="deaths_per_million">Total deaths per million: _</string>
+    <string name="last_update">Last update: _</string>
+
 </resources>

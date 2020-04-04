@@ -1,4 +1,4 @@
-package com.evangelidis.coronaviruslivedata.model
+package com.evangelidis.coronaviruslivedata.model.allcountries
 
 data class CountryInfo(
     val _id: Int,

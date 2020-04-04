@@ -5,10 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.evangelidis.coronaviruslivedata.R
-import com.evangelidis.coronaviruslivedata.model.CoronavirusDataResponseItem
+import com.evangelidis.coronaviruslivedata.model.allcountries.CoronavirusDataResponseItem
+import com.evangelidis.coronaviruslivedata.model.OnGetCountryCallback
 import kotlinx.android.synthetic.main.item_country.view.*
 
-class ListAdapter(var coronavirusData: ArrayList<CoronavirusDataResponseItem>) :
+class ListAdapter(var coronavirusData: ArrayList<CoronavirusDataResponseItem>, var callback: OnGetCountryCallback) :
     RecyclerView.Adapter<ListAdapter.CoronavirusViewHolder>() {
 
     fun updateData(newData: ArrayList<CoronavirusDataResponseItem>) {
@@ -30,7 +31,7 @@ class ListAdapter(var coronavirusData: ArrayList<CoronavirusDataResponseItem>) :
         holder.bind(coronavirusData[position])
     }
 
-    class CoronavirusViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class CoronavirusViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         private val countryName = view.countryName
         private val totalCases = view.totalCases
@@ -39,6 +40,10 @@ class ListAdapter(var coronavirusData: ArrayList<CoronavirusDataResponseItem>) :
         private val newDeaths = view.newDeaths
 
         fun bind(item: CoronavirusDataResponseItem) {
+
+            if (item.country != "World") {
+                itemView.setOnClickListener { callback.onClick(item) }
+            }
 
             countryName.text = item.country
             totalCases.text = item.cases.toString()
@@ -55,7 +60,6 @@ class ListAdapter(var coronavirusData: ArrayList<CoronavirusDataResponseItem>) :
             } else{
                 newDeaths.text = "+"+item.todayDeaths.toString()
             }
-
         }
     }
 }

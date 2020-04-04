@@ -1,30 +1,52 @@
 package com.evangelidis.coronaviruslivedata.view
 
 import android.content.DialogInterface
+import android.content.Intent
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.evangelidis.coronaviruslivedata.R
+import com.evangelidis.coronaviruslivedata.model.allcountries.CoronavirusDataResponseItem
+import com.evangelidis.coronaviruslivedata.model.OnGetCountryCallback
+import com.evangelidis.coronaviruslivedata.model.allcountries.CoronavirusDataResponse
+import com.evangelidis.coronaviruslivedata.utils.InternetStatus
 import com.evangelidis.coronaviruslivedata.viewholder.ListViewModel
 import com.evangelidis.tantintoast.TanTinToast
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    private var callback: OnGetCountryCallback = object :
+        OnGetCountryCallback {
+        override fun onClick(coronavirusDataResponseItem: CoronavirusDataResponseItem) {
+            if (InternetStatus.getInstance(applicationContext).isOnline) {
+                val intent = Intent(this@MainActivity, CountryActivity::class.java)
+                intent.putExtra("countryName", coronavirusDataResponseItem.country)
+                startActivity(intent)
+            } else {
+                TanTinToast.Warning(this@MainActivity).text("Please check your internet connection")
+                    .time(Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
     lateinit var viewModel: ListViewModel
-    private val coronavirusListAdapter = ListAdapter(arrayListOf())
+    private val coronavirusListAdapter = ListAdapter(arrayListOf(), callback)
+
+    private lateinit var fff: CoronavirusDataResponseItem
 
     private val sortValue =
-        mutableListOf("countryName", "totalCases", "newCases", "totalDeaths", "newDeaths")
-    private val sortType = mutableListOf("asc", "desc")
+        listOf("countryName", "totalCases", "newCases", "totalDeaths", "newDeaths")
+    private val sortType = listOf("asc", "desc")
 
     var selectedSortValue = "totalCases"
     var selectedSortType = "desc"
@@ -45,12 +67,11 @@ class MainActivity : AppCompatActivity() {
             adapter = coronavirusListAdapter
         }
 
-        setUpvariables()
-
+        setUpVariables()
         observeViewModel()
     }
 
-    private fun setUpvariables() {
+    private fun setUpVariables() {
         swipeRefreshLayout.setOnRefreshListener {
             swipeRefreshLayout.isRefreshing = false
             viewModel.refresh(selectedSortValue, selectedSortType)
@@ -107,8 +128,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observeViewModel() {
+
+        viewModel.coronavirusWorldData.observe(this, Observer { data ->
+            fff = data
+        })
+
         viewModel.coronavirusData.observe(this, Observer { data ->
             data?.let {
+
+                val finder = data.find { it.country == "World" }
+                if (finder == null) {
+                    addWorldData(data)
+                }
                 countriesList.visibility = View.VISIBLE
                 coronavirusListAdapter.updateData(it)
             }
@@ -134,6 +165,20 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    private fun addWorldData(data: CoronavirusDataResponse) {
+        var todayTotalCases = 0
+        var todayTotalDeaths = 0
+        for (x in 0 until data.size) {
+            todayTotalCases += data[x].todayCases
+            todayTotalDeaths += data[x].todayDeaths
+        }
+        fff.country = "World"
+        fff.todayCases = todayTotalCases
+        fff.todayDeaths = todayTotalDeaths
+
+        data.add(0, fff)
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main, menu)
         return true
@@ -141,7 +186,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
-
         if (id == R.id.action_retreive_new_data) {
             viewModel.refresh(selectedSortValue, selectedSortType)
             return true
@@ -150,7 +194,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-
         val builder = AlertDialog.Builder(this@MainActivity)
         builder.setTitle(R.string.app_name)
         builder.setIcon(R.drawable.ic_virus)
@@ -163,6 +206,4 @@ class MainActivity : AppCompatActivity() {
         val alert: AlertDialog = builder.create()
         alert.show()
     }
-
-
 }
