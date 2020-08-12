@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
 class ApiModule {
-    private val BASE_URL = "https://corona.lmao.ninja"
+    private val BASE_URL = "https://corona.lmao.ninja/v3/covid-19/"
 
     @Provides
     fun provideCoronavirusDataApi(): CoronavirusApi {
